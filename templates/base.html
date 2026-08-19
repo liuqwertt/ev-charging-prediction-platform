@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新能源充电桩数据分析与挖掘</title>
+    <link href="{{ url_for('static', filename='css/custom.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div class="app-shell">
+        {% set active = 'index' %}
+        {% include '_sidebar.html' %}
+
+        <div class="main-panel">
+            {% include '_topbar.html' %}
+
+            <div class="content">
+                <div class="hero-card">
+                    <div class="hero-heading">
+                        <h1>新能源充电及电源数据管理与控制</h1>
+                        <p>New Energy Charging And Power Data Management And Control</p>
+                    </div>
+
+                    <div class="neusoft-nav">
+                        <span class="neusoft-tag">Neusoft</span>
+                        <button class="nav-btn">产品</button>
+                        <button class="nav-btn">行业</button>
+                        <button class="nav-btn">云</button>
+                        <button class="nav-btn">服务</button>
+                        <button class="nav-btn">关于东软</button>
+                    </div>
+
+                    <div class="hero-image-wrapper">
+                        <img src="{{ url_for('static', filename='images/eu4.png') }}"
+                            alt="性能指标分类" onerror="this.style.display='none'">
+                        <div class="hero-overlay">
+                            <button class="hero-btn" title="搜索">&#128269;</button>
+                            <button class="hero-btn" title="全球">&#127760;</button>
+                        </div>
+                    </div>
+
+                    <div class="intro-text">
+东软集团（Neusoft Corporation）成立于1991年，是中国领先的IT解决方案与服务供应商。公司以软件技术为核心，提供行业解决方案、产品工程解决方案及相关软件产品、平台及服务。
+
+在新能源领域，东软致力于为充电桩基础设施提供全面的数据采集、存储、分析和挖掘服务，帮助运营商优化充电网络布局，提升运营效率，为新能源车主提供更加便捷、高效的充电服务体验。
+
+本系统基于大数据技术平台，对新能源充电桩运行数据进行深度分析，涵盖充电频率分析、SOC轨迹追踪、充电时间分布、充电速率分析等多个维度，并通过机器学习算法实现剩余电量预测、充电时间预测、充电费用预测及充电平台推荐等智能化功能。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

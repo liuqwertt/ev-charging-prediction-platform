@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>充电时间分布图分析</title>
+    <link href="{{ url_for('static', filename='css/custom.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div class="app-shell">
+        {% set active = 'bda3' %}
+        {% include '_sidebar.html' %}
+
+        <div class="main-panel">
+            {% include '_topbar.html' %}
+
+            <div class="content">
+                {% if error %}
+                <div class="alert alert-warning" role="alert">{{ error }}</div>
+                {% endif %}
+
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">充电时间分布图分析（小时 / 日 / 月）</h4>
+                        <div class="chart-frame">
+                            {% if plot_url %}
+                            <img src="data:image/png;base64, {{ plot_url }}" alt="充电时间分布" class="chart-img">
+                            {% else %}
+                            <p class="text-muted text-center">暂无数据</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

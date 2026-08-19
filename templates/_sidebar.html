@@ -1,0 +1,48 @@
+        <div class="sidebar">
+            <div class="logo">
+                <a href="/" class="logo-mini">NEU</a>
+                <a href="/" class="logo-normal">新能源充电桩数据</a>
+            </div>
+            <div class="sidebar-nav">
+                <a href="/" class="nav-link{% if active == 'index' %} active{% endif %}">
+                    <span class="nav-icon">&#9776;</span>
+                    <span class="nav-text">首页</span>
+                </a>
+                <a href="/bda1" class="nav-link{% if active == 'bda1' %} active{% endif %}">
+                    <span class="nav-icon">&#128202;</span>
+                    <span class="nav-text">充电时间与次数频率分析</span>
+                </a>
+                <a href="/bda2" class="nav-link{% if active == 'bda2' %} active{% endif %}">
+                    <span class="nav-icon">&#128167;</span>
+                    <span class="nav-text">每时电池平均SOC（电池剩余占比）</span>
+                </a>
+                <a href="/bda3" class="nav-link{% if active == 'bda3' %} active{% endif %}">
+                    <span class="nav-icon">&#9200;</span>
+                    <span class="nav-text">充电时间分布图分析</span>
+                </a>
+                <a href="/bda4" class="nav-link{% if active == 'bda4' %} active{% endif %}">
+                    <span class="nav-icon">&#9889;</span>
+                    <span class="nav-text">平均充电速率图分析</span>
+                </a>
+                <a href="/bda5" class="nav-link{% if active == 'bda5' %} active{% endif %}">
+                    <span class="nav-icon">&#128196;</span>
+                    <span class="nav-text">性能指标分类分析报告</span>
+                </a>
+                <a href="/predict_soc" class="nav-link{% if active == 'predict_soc' %} active{% endif %}">
+                    <span class="nav-icon">&#128267;</span>
+                    <span class="nav-text">预测剩余电量</span>
+                </a>
+                <a href="/predict_time" class="nav-link{% if active == 'predict_time' %} active{% endif %}">
+                    <span class="nav-icon">&#9202;</span>
+                    <span class="nav-text">预测充电时间</span>
+                </a>
+                <a href="/predict_fee" class="nav-link{% if active == 'predict_fee' %} active{% endif %}">
+                    <span class="nav-icon">&#128176;</span>
+                    <span class="nav-text">预测充电费用</span>
+                </a>
+                <a href="/predict_platform" class="nav-link{% if active == 'predict_platform' %} active{% endif %}">
+                    <span class="nav-icon">&#128241;</span>
+                    <span class="nav-text">预测充电平台的选用</span>
+                </a>
+            </div>
+        </div>

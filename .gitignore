@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+env/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# 训练生成的模型产物
+data/*.pkl
+data/*.joblib
+
+# 数据（如需提交样例 CSV，删除下面两行）
+data/*.csv
+
+# 系统
+.DS_Store
+Thumbs.db

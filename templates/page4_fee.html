@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>预测充电费用</title>
+    <link href="{{ url_for('static', filename='css/custom.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div class="app-shell">
+        {% set active = 'predict_fee' %}
+        {% include '_sidebar.html' %}
+
+        <div class="main-panel">
+            {% include '_topbar.html' %}
+
+            <div class="content">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">预测充电费用</h4>
+                        <p class="card-subtitle text-muted">输入充电信息，预测本次充电费用（元）</p>
+
+                        <form id="feeForm" class="predict-form">
+                            <div class="form-section">
+                                <div class="form-section-title">充电信息</div>
+                                <div class="form-grid">
+                                    <div class="form-item">
+                                        <label for="kwhTotal">总充电量 <span class="unit">(kwh)</span></label>
+                                        <input type="number" step="0.01" class="form-input" id="kwhTotal" name="kwhTotal" value="18.5" required>
+                                    </div>
+                                    <div class="form-item">
+                                        <label for="chargeTimeHrs">充电时长 <span class="unit">(小时)</span></label>
+                                        <input type="number" step="0.01" class="form-input" id="chargeTimeHrs" name="chargeTimeHrs" value="2.5" required>
+                                    </div>
+                                    <div class="form-item">
+                                        <label for="facilityType">设施类型</label>
+                                        <input type="number" class="form-input" id="facilityType" name="facilityType" value="3" min="0">
+                                    </div>
+                                    <div class="form-item">
+                                        <label for="managerVehicle">管理员车辆</label>
+                                        <select class="form-select" id="managerVehicle" name="managerVehicle">
+                                            <option value="0">否</option>
+                                            <option value="1" selected>是</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <div class="form-section-title">时间设置</div>
+                                <div class="form-grid">
+                                    <div class="form-item">
+                                        <label for="startTime">开始时间 <span class="unit">(小时 0-23)</span></label>
+                                        <input type="number" class="form-input" id="startTime" name="startTime" value="15" min="0" max="23" required>
+                                    </div>
+                                    <div class="form-item">
+                                        <label for="endTime">结束时间 <span class="unit">(小时 0-23)</span></label>
+                                        <input type="number" class="form-input" id="endTime" name="endTime" value="17" min="0" max="23" required>
+                                    </div>
+                                    <div class="form-item">
+                                        <label for="weekday">星期几</label>
+                                        <select class="form-select" id="weekday" name="weekday" required>
+                                            <option value="Mon">周一</option>
+                                            <option value="Tues">周二</option>
+                                            <option value="Wed" selected>周三</option>
+                                            <option value="Thurs">周四</option>
+                                            <option value="Fri">周五</option>
+                                            <option value="Sat">周六</option>
+                                            <option value="Sun">周日</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-item">
+                                        <label for="platform">使用平台</label>
+                                        <select class="form-select" id="platform" name="platform">
+                                            <option value="android" selected>Android</option>
+                                            <option value="ios">iOS</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <div class="form-section-title">星期选择</div>
+                                <div class="weekday-grid">
+                                    <div class="weekday-item">
+                                        <label for="Mon">周一</label>
+                                        <input type="number" class="form-input" id="Mon" name="Mon" value="0" min="0" max="1">
+                                    </div>
+                                    <div class="weekday-item">
+                                        <label for="Tues">周二</label>
+                                        <input type="number" class="form-input" id="Tues" name="Tues" value="0" min="0" max="1">
+                                    </div>
+                                    <div class="weekday-item">
+                                        <label for="Wed">周三</label>
+                                        <input type="number" class="form-input" id="Wed" name="Wed" value="1" min="0" max="1">
+                                    </div>
+                                    <div class="weekday-item">
+                                        <label for="Thurs">周四</label>
+                                        <input type="number" class="form-input" id="Thurs" name="Thurs" value="0" min="0" max="1">
+                                    </div>
+                                    <div class="weekday-item">
+                                        <label for="Fri">周五</label>
+                                        <input type="number" class="form-input" id="Fri" name="Fri" value="0" min="0" max="1">
+                                    </div>
+                                    <div class="weekday-item">
+                                        <label for="Sat">周六</label>
+                                        <input type="number" class="form-input" id="Sat" name="Sat" value="0" min="0" max="1">
+                                    </div>
+                                    <div class="weekday-item">
+                                        <label for="Sun">周日</label>
+                                        <input type="number" class="form-input" id="Sun" name="Sun" value="0" min="0" max="1">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn-predict">预测充电费用</button>
+                            </div>
+                        </form>
+
+                        <div id="resultContainer" style="display: none;">
+                            <div class="result-box" id="resultBox">
+                                <div class="result-title">预测结果</div>
+                                <div class="result-value" id="feeResult">--<span class="result-unit">元</span></div>
+                            </div>
+                        </div>
+
+                        <div id="errorContainer" style="display: none;">
+                            <div class="result-box error" id="errorBox">
+                                <div class="result-title">出错了</div>
+                                <div class="result-value" id="errorMessage">--</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('weekday').addEventListener('change', function() {
+            var weekdays = ['Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun'];
+            var selected = this.value;
+
+            weekdays.forEach(function(day) {
+                document.getElementById(day).value = (day === selected) ? 1 : 0;
+            });
+        });
+
+        document.getElementById('feeForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var formData = {
+                'kwhTotal': parseFloat(document.getElementById('kwhTotal').value),
+                'chargeTimeHrs': parseFloat(document.getElementById('chargeTimeHrs').value),
+                'startTime': parseInt(document.getElementById('startTime').value),
+                'endTime': parseInt(document.getElementById('endTime').value),
+                'managerVehicle': parseInt(document.getElementById('managerVehicle').value),
+                'Mon': parseInt(document.getElementById('Mon').value),
+                'Tues': parseInt(document.getElementById('Tues').value),
+                'Wed': parseInt(document.getElementById('Wed').value),
+                'Thurs': parseInt(document.getElementById('Thurs').value),
+                'Fri': parseInt(document.getElementById('Fri').value),
+                'Sat': parseInt(document.getElementById('Sat').value),
+                'Sun': parseInt(document.getElementById('Sun').value),
+                'weekday': document.getElementById('weekday').value,
+                'platform': document.getElementById('platform').value,
+                'facilityType': parseInt(document.getElementById('facilityType').value)
+            };
+
+            fetch('/predict_fee_api', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('errorContainer').style.display = 'none';
+                document.getElementById('feeResult').innerHTML = data.fee + '<span class="result-unit">元</span>';
+                document.getElementById('resultContainer').style.display = 'block';
+            })
+            .catch(error => {
+                document.getElementById('resultContainer').style.display = 'none';
+                document.getElementById('errorMessage').textContent = error.message;
+                document.getElementById('errorContainer').style.display = 'block';
+            });
+        });
+    </script>
+</body>
+</html>

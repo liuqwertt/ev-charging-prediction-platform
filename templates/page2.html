@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>每时电池平均 SOC（电池剩余占比）</title>
+    <link href="{{ url_for('static', filename='css/custom.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div class="app-shell">
+        {% set active = 'bda2' %}
+        {% include '_sidebar.html' %}
+
+        <div class="main-panel">
+            {% include '_topbar.html' %}
+
+            <div class="content">
+                {% if error %}
+                <div class="alert alert-warning" role="alert">{{ error }}</div>
+                {% endif %}
+
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">电池 SOC 平均值轨迹与热力图</h4>
+                        <div class="chart-grid">
+                            <div class="chart-item">
+                                <h6 class="chart-subtitle">电池使用轨迹图（按小时平均 SOC）</h6>
+                                <div class="chart-frame">
+                                    {% if plot_url %}
+                                    <img src="data:image/png;base64, {{ plot_url }}" alt="SOC 折线图" class="chart-img">
+                                    {% else %}
+                                    <p class="text-muted text-center">暂无数据</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="chart-item">
+                                <h6 class="chart-subtitle">SOC 热力图（日期 × 小时）</h6>
+                                <div class="chart-frame">
+                                    {% if plot_url2 %}
+                                    <img src="data:image/png;base64, {{ plot_url2 }}" alt="SOC 热力图" class="chart-img">
+                                    {% else %}
+                                    <p class="text-muted text-center">暂无数据</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
